@@ -1,8 +1,10 @@
 /* Everything related to logging. */
-#pragma once
+
+#ifndef log
+#define log
+
 #include <Windows.h>
 #include <stdio.h>
-#include <cstring>
 
 void dumpData(
     FILE* dest,
@@ -13,3 +15,5 @@ void raiseError(
     char msg[],
     unsigned int errorCode
 );
+
+#endif

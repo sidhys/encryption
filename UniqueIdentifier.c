@@ -6,7 +6,7 @@
 #include ".\include\key.h"
 #include ".\include\log.h"
 
-unsigned int hardwareGUID
+unsigned int hardwareGUID()
 {
     HW_PROFILE_INFO hwProfileInfo;
 
@@ -16,7 +16,7 @@ unsigned int hardwareGUID
       return (unsigned int) result;
     } else
 		{
-        char errorMessage[] = "Failed to obtain hardware profile info."
+        char errorMessage[] = "Failed to obtain hardware profile info.";
         unsigned int errorCode = 3;
         raiseError(errorMessage, errorCode);
     }

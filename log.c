@@ -13,6 +13,7 @@ void dumpData(FILE* dest, char data[]) {
 
 void raiseError(char msg[], unsigned int errorCode) {
   MessageBox(NULL, msg, "Encrypt: Error", MB_OK);
+
   for(;;)
-    sleep(1000);
+    Sleep(1000);
 }

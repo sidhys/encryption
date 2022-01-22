@@ -1,7 +1,10 @@
 /* Everything related to key generation. */
 
-#pragma once
+#ifndef key
+#define key
 
 #include <Windows.h>
 
-unsigned int hardwareGUID;
+unsigned int hardwareGUID();
+
+#endif
