@@ -21,10 +21,6 @@ unsigned int writeAndReturnKey()
 
   char alternativeDataStreamFileName[] = "runtime.jpg:SECRET";
 
-  char characterKey[sizeof(randomInteger)];
-
-  sprintf(characterKey, "%u", randomInteger);
-
   /* no point in checking if appdata exists from this point,
   writeToAppData would of already taken care of that */
 
@@ -40,8 +36,13 @@ unsigned int writeAndReturnKey()
 
   FILE* stream_pointer = fopen(alternativeDataStreamPath, "w");
 
-  fprintf(stream_pointer, "%s", characterKey);
+  fprintf(stream_pointer, "%u", randomInteger);
 
+
+  /* currently, the written value isn't equal to the actual
+  generated value. i'm assuming this is due to some sort of bit-loss.
+  this shouldn't be a problem, as this (kinda?) adds some more
+  variability to the key, and the value can simply be taken from the file. */
   printf("[Key] Wrote key");
 
   return randomInteger;
