@@ -1,5 +1,6 @@
 
 #include <Windows.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 #include ".\include\key.h"
@@ -11,13 +12,13 @@ unsigned int hardwareGUID
 
     if (GetCurrentHwProfile(&hwProfileInfo) != NULL)
 		{
-        printf("Hardware GUID: %s\n",     hwProfileInfo.szHwProfileGuid);
-        printf("Hardware Profile: %s\n", hwProfileInfo.szHwProfileName);
+      int result = atoi(hwProfileInfo.szHwProfileGuid);
+      return (unsigned int) result; 
     } else
 		{
-
-        return 0;
+        char errorMessage[] = "Failed to obtain hardware profile info."
+        unsigned int errorCode = 3;
+        raiseError(errorMessage, errorCode);
     }
 
-    getchar();
 }
