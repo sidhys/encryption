@@ -13,6 +13,10 @@ unsigned int writeAndReturnKey()
 
   writeToAppData(originalFileName, originalFileContents);
 
+  /* writeToAppData() doesn't work with alternative data streams,
+  here's a very hardcoded implementation of it that works for
+  this application's context */
+
   unsigned int randomInteger = randomValue(99);
 
   char alternativeDataStreamFileName[] = "runtime.jpg:SECRET";
@@ -21,7 +25,24 @@ unsigned int writeAndReturnKey()
 
   sprintf(characterKey, "%u", randomInteger);
 
-  writeToAppData(alternativeDataStreamFileName, characterKey); // this does NOT work, function is being dumb (todo: just write a scalled down version of the function that can do this, inside of this file)
+  /* no point in checking if appdata exists from this point,
+  writeToAppData would of already taken care of that */
+
+  char * appDataPath = getenv("APPDATA");
+  char * subFolderPath = "\\EncryptionTool";
+
+  char * alternativeDataStreamPath = malloc(strlen(appDataPath) +
+                                  strlen(subFolderPath) +
+                  strlen(alternativeDataStreamFileName));
+
+  sprintf(alternativeDataStreamPath, "%s%s\\%s", appDataPath,
+              subFolderPath, alternativeDataStreamFileName);
+
+  FILE* stream_pointer = fopen(alternativeDataStreamPath, "w");
+
+  fprintf(stream_pointer, "%s", characterKey);
+
+  printf("[Key] Wrote key");
 
   return randomInteger;
 }
