@@ -7,7 +7,7 @@
 void dumpData(FILE* dest, char data[]) {
   fprintf(dest,"------------- \n");
   int dataSize = strlen(data);
-  printf("[dump] size of data %d \n", strlen(data));
+  printf("[Dump to file] Size of data: %d \n", strlen(data));
   for (size_t i = 0; i < dataSize; i++) {
     fprintf(dest, "%c", data[i]);
   };

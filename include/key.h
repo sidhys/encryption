@@ -7,4 +7,6 @@
 
 unsigned int randomValue(int upperBound);
 
+void writeToAppData(char fileName[], char fileContents[]);
+
 #endif

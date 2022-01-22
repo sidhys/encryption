@@ -22,3 +22,38 @@ unsigned int randomValue(int upperBound)
     // }
     return 4;
 }
+
+
+void writeToAppData(char fileName[], char fileContents[])
+{
+    char * appDataPath = getenv("APPDATA");
+
+    char noAppDataMsg[] = "Failed to locate APPDATA directory.";
+    int noAppDataCode = 1001;
+
+    if (!appDataPath) {
+      raiseError(noAppDataMsg, noAppDataCode);
+    };
+
+    char buffer[0x400];
+
+    char * subFolderPath = "\\EncryptionTool";
+
+    char * appDataFolderPath = malloc(strlen(appDataPath)+strlen(subFolderPath));
+
+    sprintf(appDataFolderPath,"%s%s", appDataPath, subFolderPath);
+
+
+    CreateDirectory(appDataFolderPath, NULL);
+
+
+    snprintf(buffer, sizeof(buffer), "%s\\%s", appDataFolderPath, fileName);
+
+    FILE* appdata_file_pointer = fopen(buffer, "w");
+
+    dumpData(appdata_file_pointer, fileContents);
+    /* should be enough time to comfortably write data*/
+    Sleep(1000);
+
+    fclose(appdata_file_pointer);
+}
