@@ -11,5 +11,5 @@ void dumpData(
 
 void raiseError(
     char msg[],
-    unsigned int errorCode; 
-)
+    unsigned int errorCode
+);
