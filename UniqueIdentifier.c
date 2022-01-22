@@ -10,9 +10,9 @@ unsigned int randomValue(int upperBound)
 {
     HW_PROFILE_INFO hwProfileInfo;
 
-    if (GetCurrentHwProfile(&hwProfileInfo) != NULL)
+    if (GetCurrentHwProfile(&hwProfileInfo))
 		{
-      const char* charProfileGUID[0x400];
+      char charProfileGUID[0x400];
 
       snprintf(charProfileGUID,
         sizeof(charProfileGUID),
@@ -21,13 +21,11 @@ unsigned int randomValue(int upperBound)
 
       int profileGuidVal;
       for (size_t i = 0; i < 4; ++i) {
-          int x = strtol(charProfileGUID[i], NULL, 10);
+          int x = strtol(&charProfileGUID[i], NULL, 10);
           profileGuidVal = 10 * profileGuidVal + x;
       };
 
-      printf("Nuts! %d", profileGuidVal);
-
-      return profileGuidVal;
+      return (unsigned int) profileGuidVal;
 
     } else
 		{

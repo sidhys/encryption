@@ -9,17 +9,9 @@ typedef unsigned int uint;
 int main(void)
 {
 
-  printf("aads");
-
   uint a = randomValue(33);
 
-
-
-
-  printf("aa");
-
-
-  printf("\n %d", a);
+  printf("%u", a);
 
   return 0;
 }
