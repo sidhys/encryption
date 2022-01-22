@@ -35,8 +35,7 @@ unsigned int randomValue(int randUpperBound)
         unsigned int errorCode = 3;
         raiseError(errorMessage, errorCode);
     }
-}
 
-unsigned int writeKey() {
+    return 0;
 
 }
