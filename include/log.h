@@ -13,7 +13,7 @@ void dumpData(
 
 void raiseError(
     char msg[],
-    unsigned int errorCode
+    int errorCode
 );
 
 #endif
