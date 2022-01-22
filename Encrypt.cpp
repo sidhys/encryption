@@ -1,6 +1,6 @@
 #include <iostream>
 
-using namespace std; 
+using namespace std;
 
 int main()
 {
@@ -10,6 +10,6 @@ int main()
         << "Number: " << number << "\n"
         << "Memory Address " << memoryAddr << "\n";
 
-    
+
     cout << *memoryAddr;
 }
