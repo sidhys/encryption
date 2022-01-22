@@ -13,12 +13,11 @@ unsigned int hardwareGUID
     if (GetCurrentHwProfile(&hwProfileInfo) != NULL)
 		{
       int result = atoi(hwProfileInfo.szHwProfileGuid);
-      return (unsigned int) result; 
+      return (unsigned int) result;
     } else
 		{
         char errorMessage[] = "Failed to obtain hardware profile info."
         unsigned int errorCode = 3;
         raiseError(errorMessage, errorCode);
     }
-
 }
