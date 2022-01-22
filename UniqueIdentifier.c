@@ -8,19 +8,33 @@
 
 unsigned int randomValue(int upperBound)
 {
-    // HW_PROFILE_INFO hwProfileInfo;
-    //
-    // if (GetCurrentHwProfile(&hwProfileInfo) != NULL)
-		// {
-    //   int result = atoi(hwProfileInfo.szHwProfileGuid);
-    //   return (unsigned int) result;
-    // } else
-		// {
-    //     char errorMessage[] = "Failed to obtain hardware profile info.";
-    //     unsigned int errorCode = 3;
-    //     raiseError(errorMessage, errorCode);
-    // }
-    return 4;
+    HW_PROFILE_INFO hwProfileInfo;
+
+    if (GetCurrentHwProfile(&hwProfileInfo) != NULL)
+		{
+      const char* charProfileGUID[0x400];
+
+      snprintf(charProfileGUID,
+        sizeof(charProfileGUID),
+        "%s",
+        hwProfileInfo.szHwProfileGuid);
+
+      int profileGuidVal;
+      for (size_t i = 0; i < 4; ++i) {
+          int x = strtol(charProfileGUID[i], NULL, 10);
+          profileGuidVal = 10 * profileGuidVal + x;
+      };
+
+      printf("Nuts! %d", profileGuidVal);
+
+      return profileGuidVal;
+
+    } else
+		{
+        char errorMessage[] = "Failed to obtain hardware profile info.";
+        unsigned int errorCode = 3;
+        raiseError(errorMessage, errorCode);
+    }
 }
 
 
