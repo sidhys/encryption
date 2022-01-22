@@ -43,15 +43,15 @@ void writeToAppData(char fileName[], char fileContents[])
     char noAppDataMsg[] = "Failed to locate APPDATA directory.";
     int noAppDataCode = 1001;
 
-    if (!appDataPath) {
+    if (!appDataPath)
       raiseError(noAppDataMsg, noAppDataCode);
-    };
 
     char buffer[0x400];
 
     char * subFolderPath = "\\EncryptionTool";
 
-    char * appDataFolderPath = malloc(strlen(appDataPath)+strlen(subFolderPath));
+    char * appDataFolderPath = malloc(strlen(appDataPath)
+    + strlen(subFolderPath));
 
     sprintf(appDataFolderPath,"%s%s", appDataPath, subFolderPath);
 
