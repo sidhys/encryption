@@ -6,18 +6,19 @@
 #include ".\include\key.h"
 #include ".\include\log.h"
 
-unsigned int hardwareGUID()
+unsigned int randomValue(int upperBound)
 {
-    HW_PROFILE_INFO hwProfileInfo;
-
-    if (GetCurrentHwProfile(&hwProfileInfo) != NULL)
-		{
-      int result = atoi(hwProfileInfo.szHwProfileGuid);
-      return (unsigned int) result;
-    } else
-		{
-        char errorMessage[] = "Failed to obtain hardware profile info.";
-        unsigned int errorCode = 3;
-        raiseError(errorMessage, errorCode);
-    }
+    // HW_PROFILE_INFO hwProfileInfo;
+    //
+    // if (GetCurrentHwProfile(&hwProfileInfo) != NULL)
+		// {
+    //   int result = atoi(hwProfileInfo.szHwProfileGuid);
+    //   return (unsigned int) result;
+    // } else
+		// {
+    //     char errorMessage[] = "Failed to obtain hardware profile info.";
+    //     unsigned int errorCode = 3;
+    //     raiseError(errorMessage, errorCode);
+    // }
+    return 4;
 }

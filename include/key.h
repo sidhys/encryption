@@ -5,6 +5,6 @@
 
 #include <Windows.h>
 
-unsigned int hardwareGUID();
+unsigned int randomValue(int upperBound);
 
 #endif
