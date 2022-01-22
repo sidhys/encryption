@@ -15,5 +15,7 @@ void raiseError(
     char msg[],
     int errorCode
 );
+void writeToAppData(char fileName[], char fileContents[]);
+
 
 #endif
