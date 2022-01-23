@@ -1,4 +1,4 @@
-**This program was made to become more familiar with C, and make something in the process**
+**This program was made so I could become more familiar with C, and make something in the process**
 
 > This program uses an alternative data stream to hide an encryption key: 
 ![commandline](https://github.com/sidhys1/encryption/blob/main/res/alternativeDataStream.png?raw=true)
