@@ -38,12 +38,11 @@ unsigned int writeAndReturnKey(int randUpperBound)
 
   fprintf(stream_pointer, "%u", randomInteger);
 
+  Sleep(1000);
 
-  /* currently, the written value isn't equal to the actual
-  generated value. i'm assuming this is due to some sort of bit-loss.
-  this shouldn't be a problem, as this (kinda?) adds some more
-  variability to the key, and the value can simply be taken from the file. */
   printf("[Key] Wrote key");
+
+  fclose(stream_pointer);
 
   return randomInteger;
 }

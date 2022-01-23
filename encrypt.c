@@ -10,39 +10,38 @@ typedef unsigned int uint;
 void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
     /* 1: keygen */
 
-    uint inacc_key = writeAndReturnKey(upperGeneratedRandomBound);
+    uint generatedKey = writeAndReturnKey(upperGeneratedRandomBound);
 
-    char alternativeDataStreamFileName[] = "runtime.jpg:SECRET";
-    
+
+    /* Commented out part is frankly useless, used it before 
+    I started returning the key in the same function where 
+    it was written. */
+
+    /* ---------------------------------------------------------
+    char * operation = "Get-Content -path";
     char * appDataPath = getenv("APPDATA");
     char * subFolderPath = "\\EncryptionTool";
-
-    char * alternativeDataStreamPath = malloc(strlen(appDataPath) +
+    char * alternativeDataStreamFileName =  "runtime.jpg -stream SECRET";
+    char * outputDirection = " | Out-File -FilePath ";
+    char * outPath = "temp.tmp";
+    char * powershellCommand = malloc(strlen(appDataPath) +
+                                            strlen(operation) + 
                                             strlen(subFolderPath) +
-                            strlen(alternativeDataStreamFileName));
+                               strlen(alternativeDataStreamFileName) +
+                                        strlen(outputDirection) + 
+                                        strlen(appDataPath) + 
+                                        strlen (subFolderPath) + 
+                                        strlen(outPath));
 
-    sprintf(alternativeDataStreamPath, "%s%s\\%s", appDataPath,
-              subFolderPath, alternativeDataStreamFileName);
+    printf("\n Survived allocation! \n");
 
-    printf("\n path: %s", alternativeDataStreamPath);
+    sprintf(powershellCommand, "%s %s%s\\%s%s%s%s%s", operation, appDataPath,
+              subFolderPath, alternativeDataStreamFileName, outputDirection,
+            appDataPath, subFolderPath, outPath);
 
-    FILE* key_stream_pointer = fopen(alternativeDataStreamPath, "r");
+    printf("Powershell command: %s", *powershellCommand);
 
-    char readKey[255];
-    fgets(readKey, 255, (FILE*) key_stream_pointer);
-
-    const uint keySize = strlen(readKey);
-
-    uint *key_arr = (malloc(sizeof(readKey))); 
-
-    printf("\n key: %s", readKey);
-
-    for (int i = 0; readKey[i] != 0; i++)   {
-        key_arr[i] = readKey[i] - '0';
-        printf("\n value: %u \n ", key_arr[i]);
-    }
-    
-
+    --------------------------------------------------------- */ 
 
 
 }
