@@ -19,4 +19,4 @@ Program.exe
 
 - [x] Created a logging system
 - [x] Created an unique key, based on the C rand() function, bit-loss, and hardware profiles
-- [] Create an encryption and decryption algorithm 
+- [ ] Create an encryption and decryption algorithm 
