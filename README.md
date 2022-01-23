@@ -4,7 +4,7 @@
 ![commandline](https://github.com/sidhys1/encryption/blob/main/res/alternativeDataStream.png?raw=true)
 
 
-This program can be compiled using gcc 6.3.0, by running ![this batch file](compile.bat) or running the commands below:
+This program can be compiled using gcc 6.3.0, by running [this batch file](compile.bat) or running the commands below:
 ```
 gcc -c log.c
 gcc -c key_gen.c
