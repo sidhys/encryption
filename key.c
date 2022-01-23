@@ -5,7 +5,7 @@
 #include ".\include\key.h"
 #include ".\include\log.h"
 
-unsigned int writeAndReturnKey()
+unsigned int writeAndReturnKey(int randUpperBound)
 {
 
   char originalFileName[] = "runtime.jpg";
@@ -17,7 +17,7 @@ unsigned int writeAndReturnKey()
   here's a very hardcoded implementation of it that works for
   this application's context */
 
-  unsigned int randomInteger = randomValue(99);
+  unsigned int randomInteger = randomValue(randUpperBound);
 
   char alternativeDataStreamFileName[] = "runtime.jpg:SECRET";
 
