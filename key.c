@@ -5,11 +5,46 @@
 #include ".\include\key.h"
 #include ".\include\log.h"
 
+/*  key can't have 0s in it, 
+  so it can be converted into an array (see encrypt.c) */
+
+unsigned int reverseNumber(int temp)
+{
+    int ans = 0;
+    while (temp > 0) {
+        int rem = temp % 10;
+        ans = ans * 10 + rem;
+        temp = temp / 10;
+    }
+    return (unsigned int) ans;
+}
+
+
+int convert0To5(unsigned int num)
+{
+    if (num == 0)
+        return 5;
+    else {
+        int temp = 0;
+        while (num > 0) {
+            int digit = num % 10;
+            if (digit == 0)
+                digit = 5;
+            temp = temp * 10 + digit;
+            num = num / 10;
+        }
+        return reverseNumber(temp);
+    }
+}
+ 
+
+
 unsigned int writeAndReturnKey(int randUpperBound)
 {
 
-  char originalFileName[] = "runtime.jpg";
-  char originalFileContents[] = "if you're reading this, dont delete this file ‼️‼️";
+  char originalFileName[] = "runtime.txt"; 
+  /* emojis turn into random symbols */
+  char originalFileContents[] = "---Do NOT delete this file--- \n ‼️🤤😱⁉️🙏🥰🥰😨💓💀😳⚠️⚠️😋😋😳😳💀💓💀💀💓";
 
   writeToAppData(originalFileName, originalFileContents);
 
@@ -17,7 +52,9 @@ unsigned int writeAndReturnKey(int randUpperBound)
   here's a very hardcoded implementation of it that works for
   this application's context */
 
-  unsigned int randomInteger = randomValue(randUpperBound);
+  unsigned int _randomInteger = randomValue(randUpperBound);
+
+  unsigned int randomInteger = convert0To5(_randomInteger);
 
   char alternativeDataStreamFileName[] = "runtime.jpg:SECRET";
 

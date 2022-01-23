@@ -1,21 +1,36 @@
 #include <Windows.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #include ".\include\key.h"
 #include ".\include\log.h"
 
 typedef unsigned int uint; 
 
+int *toArray(unsigned int number)
+{
+    int n = log10(number) + 1;
+    int i;
+    int *numberArray = calloc(n, sizeof(int));
+    for ( i = 0; i < n; ++i, number /= 10 )
+    {
+        numberArray[i] = number % 10;
+    }
+    return numberArray;
+}
+
+
 void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
+    
     /* 1: keygen */
 
-    uint generatedKey = writeAndReturnKey(upperGeneratedRandomBound);
+    uint _generatedKey = writeAndReturnKey(upperGeneratedRandomBound);
 
 
     /* Commented out part is frankly useless, used it before 
     I started returning the key in the same function where 
-    it was written. */
+    it was written. (kept it in here becuase i could use it later)*/
 
     /* ---------------------------------------------------------
     char * operation = "Get-Content -path";
@@ -42,6 +57,31 @@ void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
     printf("Powershell command: %s", *powershellCommand);
 
     --------------------------------------------------------- */ 
+
+  /* Converting type unsigned int to type int[] */
+
+  int * generatedKey = toArray(_generatedKey);
+
+  // Sleep(50);
+
+  printf("\n [1]: %u", generatedKey[1]);
+
+  // unsigned int key_length = (int)(log10((float)generatedKey)) + 1;
+  // int * arr = (int *) malloc(generatedKey * sizeof(int)), * curr = arr;
+  // do {
+  //     *curr++ = generatedKey % 10;
+  //     generatedKey /= 10;
+  // } while (generatedKey != 0);
+
+  // int a[99] = &arr;
+
+  // printf("\n arr = %p", a[0]);
+
+  printf("\n key = %u", _generatedKey);
+
+  
+
+ 
 
 
 }
