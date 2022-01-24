@@ -10,6 +10,10 @@ typedef unsigned int uint;
 
 #define ZERO_KEY_LENGTH_OR_UNREADABLE 4
 #define ASCII_VALUE_ADDITION_FAILURE 1
+#define NEGATIVE_UNSIGNED_INT 5
+
+/* Helper functions 
+--------------------------------*/
 
 int getLen(unsigned int x) {
     if (x >= 1000000000000) return 13;
@@ -27,7 +31,23 @@ int getLen(unsigned int x) {
     return 1;
 }
 
+unsigned long long untilOneDigitIsLeftHelper(int len) {
+  if (len == 13) return 10000000000000; 
+  if (len == 12) return 1000000000000;
+  if (len == 11) return 100000000000;
+  if (len == 10) return 10000000000; 
+  if (len == 9) return 1000000000;
+  if (len == 8) return 100000000;
+  if (len == 7) return 10000000; 
+  if (len == 6) return 1000000;
+  if (len == 5) return 100000;
+  if (len == 4) return 10000; 
+  if (len == 3) return 1000;
+  if (len == 2) return 100;
+  if (len == 1) return 10; 
+}
 
+/*------------------------------*/
 
 void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
     
@@ -35,7 +55,7 @@ void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
 
     uint _generatedKey = writeAndReturnKey(upperGeneratedRandomBound);
 
-    printf("%u", _generatedKey);
+    printf(": %u \n ", _generatedKey);
 
 
     /* The following segment of code is no longer useful, however could 
@@ -75,12 +95,44 @@ void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
 
     int keyLength = getLen(_generatedKey);
   
-    char zeroKeyLenMsg = "Generated key length is 0 or unreadable";
-
+    char zeroKeyLenMsg[] = "Generated key length is 0 or unreadable";
+    char negativeKeyMsg[] = "Generated key (of type unsigned int) is somehow negative.";
+  
     if (keyLength == 0) 
       raiseError(zeroKeyLenMsg, ZERO_KEY_LENGTH_OR_UNREADABLE);
 
-    for (size_t i; i < keyLength; i++) {
+
+  /* this where it gets very messy */
+
+    int oneDigitArray[13];
+
+    int i;
+
+    for (i = 0; i < keyLength; i++) {
+
+      printf("\n [debug] count %i \n ", i);
+
+      unsigned int whileLoopVal = untilOneDigitIsLeftHelper(i);
+
+      int __generatedKey = _generatedKey; 
+
+    /* On some runs, __generatedKey became negative,
+       despite being equal to an unsigned int (_generatedKey) */
+
+      if (__generatedKey < 0) 
+        raiseError(negativeKeyMsg, NEGATIVE_UNSIGNED_INT);
+
+
+  printf("%d", __generatedKey);
+
+    /* program currently dies after this */
+
+      // while(__generatedKey >= whileLoopVal) {
+      //     __generatedKey = __generatedKey / 10;
+      // }  
+
+      printf("\n %d element is %d \n", i, __generatedKey);
+      
 
     }
 
