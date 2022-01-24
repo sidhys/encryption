@@ -31,63 +31,16 @@ int getLen(unsigned int x) {
     return 1;
 }
 
-unsigned long long untilOneDigitIsLeftHelper(int len) {
-  if (len == 13) return 10000000000000; 
-  if (len == 12) return 1000000000000;
-  if (len == 11) return 100000000000;
-  if (len == 10) return 10000000000; 
-  if (len == 9) return 1000000000;
-  if (len == 8) return 100000000;
-  if (len == 7) return 10000000; 
-  if (len == 6) return 1000000;
-  if (len == 5) return 100000;
-  if (len == 4) return 10000; 
-  if (len == 3) return 1000;
-  if (len == 2) return 100;
-  if (len == 1) return 10; 
-}
 
 /*------------------------------*/
 
-void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
+void encryptFile(const char * origFileName, const char* finalFileName,  int upperGeneratedRandomBound) {
     
     /* 1: keygen */
 
     uint _generatedKey = writeAndReturnKey(upperGeneratedRandomBound);
 
     printf(": %u \n ", _generatedKey);
-
-
-    /* The following segment of code is no longer useful, however could 
-    be useful if anyone were to pick up this project. */
-
-    /* ---------------------------------------------------------
-    char * operation = "Get-Content -path";
-    char * appDataPath = getenv("APPDATA");
-    char * subFolderPath = "\\EncryptionTool";
-    char * alternativeDataStreamFileName =  "runtime.jpg -stream SECRET";
-    char * outputDirection = " | Out-File -FilePath ";
-    char * outPath = "temp.tmp";
-    char * powershellCommand = malloc(strlen(appDataPath) +
-                                            strlen(operation) + 
-                                            strlen(subFolderPath) +
-                               strlen(alternativeDataStreamFileName) +
-                                        strlen(outputDirection) + 
-                                        strlen(appDataPath) + 
-                                        strlen (subFolderPath) + 
-                                        strlen(outPath));
-
-    printf("\n Survived allocation! \n");
-
-    sprintf(powershellCommand, "%s %s%s\\%s%s%s%s%s", operation, appDataPath,
-              subFolderPath, alternativeDataStreamFileName, outputDirection,
-            appDataPath, subFolderPath, outPath);
-
-    printf("Powershell command: %s", *powershellCommand);
-
-    ~~ read from file ~~
-
-    --------------------------------------------------------- */ 
 
   /* 2: encrypting */
 
@@ -102,39 +55,51 @@ void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
       raiseError(zeroKeyLenMsg, ZERO_KEY_LENGTH_OR_UNREADABLE);
 
 
-  /* this where it gets very messy */
+    uint oneDigitArray[13] = {0};
 
-    int oneDigitArray[13];
-
-    int i;
+    uint i;
 
     for (i = 0; i < keyLength; i++) {
 
-      printf("\n [debug] count %i \n ", i);
-
-      unsigned int whileLoopVal = untilOneDigitIsLeftHelper(i);
-
-      int __generatedKey = _generatedKey; 
-
-    /* On some runs, __generatedKey became negative,
-       despite being equal to an unsigned int (_generatedKey) */
-
-      if (__generatedKey < 0) 
+      if (_generatedKey < 0) 
         raiseError(negativeKeyMsg, NEGATIVE_UNSIGNED_INT);
 
-
-  printf("%d", __generatedKey);
-
-    /* program currently dies after this */
-
-      // while(__generatedKey >= whileLoopVal) {
-      //     __generatedKey = __generatedKey / 10;
-      // }  
-
-      printf("\n %d element is %d \n", i, __generatedKey);
-      
+      uint digit = (uint)(_generatedKey / pow (10, i)) % 10;
+    
+      oneDigitArray[i] = digit; 
 
     }
 
 
+  FILE* origFile = fopen(origFileName, "r");
+  char currLine[256];
+  FILE* finalFile = fopen(finalFileName, "a");
+  char currEncryptedLine[256];
+
+  int random_loop_value1;
+  int random_loop_value2;
+
+  while (fgets(currLine, sizeof(currLine), origFile)) {
+
+      for (random_loop_value1 = 0; random_loop_value1 < sizeof(currLine); random_loop_value1++) 
+        {
+
+          if (random_loop_value2 > 12) 
+            random_loop_value2 = 0;
+    
+          char throw_away_value = currEncryptedLine[random_loop_value1] = currLine[random_loop_value1] + oneDigitArray[random_loop_value2];
+
+          fprintf(finalFile, throw_away_value);
+
+          random_loop_value2++;
+
+        }
+
+        fprintf(finalFile, "\n");
+
+  };
+
+  fclose(origFile);
+  fclose(finalFile);
+    
 }

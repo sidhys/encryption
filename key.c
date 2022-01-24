@@ -38,8 +38,7 @@ int convert0To5(unsigned int num)
 }
  
 
-
-unsigned int writeAndReturnKey(int randUpperBound)
+unsigned int _writeAndReturnKey(int randUpperBound)
 {
 
   char originalFileName[] = "runtime.txt"; 
@@ -82,4 +81,33 @@ unsigned int writeAndReturnKey(int randUpperBound)
   fclose(stream_pointer);
 
   return randomInteger;
+}
+
+unsigned int writeAndReturnKey(int randUpperBound) {
+
+    unsigned int a = _writeAndReturnKey(randUpperBound);
+
+    if (a == 0) {
+        a = _writeAndReturnKey(randUpperBound);
+        printf("\n");
+    }
+
+    if (a == 0) {
+        a = _writeAndReturnKey(randUpperBound);
+        printf("\n");
+    }
+     
+    if (a == 0) {
+        a = _writeAndReturnKey(randUpperBound);
+        printf("\n");
+    } 
+     
+    if (a == 0) {
+        for (;;)
+            Sleep(50);
+    };
+
+    return a;   
+
+    
 }

@@ -1,3 +1,7 @@
+/* This file simply provides a command-line interface for the encryption program. 
+  See other files for encryption source code. */
+
+
 #include <Windows.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -8,37 +12,23 @@
 
 typedef unsigned int uint;
 
-int main(void)
+
+int main(int argc, char *argv[]) 
 {
 
-
-  const char* a = "testesteststest";
-
-
-  encryptFile(a,99);
-
+  if (argc < 3) {
+    printf("Please supply three arguments. \n Ex. program.exe C:\file1.txt C:\file2.txt 99 \n");
+    return 3;
+  }
 
 
+  const char* origPath = argv[0];
+  const char* finalPath = argv[1];
+  int randUpperBound = argv[2];
 
 
+  encryptFile(origPath, finalPath, randUpperBound); 
 
-  // uint a = writeAndReturnKey();
-
-  // printf("\n Original key: %u \n", a);
-
-  //  FILE* dest1 = fopen("C:\\Users\\Sid\\Appdata\\Roaming\\EncryptionTool\\runtime.jpg:SECRET", "r");
-
-  //   char buffer[255];
-  //    fgets(buffer, 255, (FILE*) dest1);
-  //    printf("\n Read key: %u \n ", buffer);
-    // char data1[] = "ddsadaas";
-    // fprintf(dest1, "%s", data1);
-    // fclose(dest1);
-
-
-  // uint random = writeAndReturnKey(99);
-  //
-  // printf("%u", random);
 
   return 0;
 
