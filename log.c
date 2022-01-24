@@ -5,6 +5,7 @@
 #include ".\include\key.h"
 #include ".\include\log.h"
 
+#define NO_APP_DATA 2
 
 void dumpData(FILE* dest, char data[]) {
   fprintf(dest,"------------- \n");
@@ -15,7 +16,7 @@ void dumpData(FILE* dest, char data[]) {
 
 void raiseError(char msg[], int errorCode) {
   MessageBox(NULL, msg, "Encrypt: Error", MB_OK);
-  // todo: dump error info somewhere
+  printf("Process failed with exit code %i", errorCode);
   exit(errorCode);
 }
 
@@ -24,10 +25,9 @@ void writeToAppData(char fileName[], char fileContents[])
     char * appDataPath = getenv("APPDATA");
 
     char noAppDataMsg[] = "Failed to locate APPDATA directory.";
-    int noAppDataCode = 1001;
 
     if (!appDataPath)
-      raiseError(noAppDataMsg, noAppDataCode);
+      raiseError(noAppDataMsg, NO_APP_DATA);
 
     char buffer[0x400];
 

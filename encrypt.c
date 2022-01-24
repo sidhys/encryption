@@ -8,6 +8,26 @@
 
 typedef unsigned int uint; 
 
+#define ZERO_KEY_LENGTH_OR_UNREADABLE 4
+#define ASCII_VALUE_ADDITION_FAILURE 1
+
+int getLen(unsigned int x) {
+    if (x >= 1000000000000) return 13;
+    if (x >= 100000000000) return 12;
+    if (x >= 10000000000) return 11;
+    if (x >= 1000000000) return 10;
+    if (x >= 100000000)  return 9;
+    if (x >= 10000000)   return 8;
+    if (x >= 1000000)    return 7;
+    if (x >= 100000)     return 6;
+    if (x >= 10000)      return 5;
+    if (x >= 1000)       return 4;
+    if (x >= 100)        return 3;
+    if (x >= 10)         return 2;
+    return 1;
+}
+
+
 
 void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
     
@@ -15,10 +35,11 @@ void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
 
     uint _generatedKey = writeAndReturnKey(upperGeneratedRandomBound);
 
+    printf("%u", _generatedKey);
 
-    /* Commented out part is frankly useless, used it before 
-    I started returning the key in the same function where 
-    it was written. (kept it in here becuase i could use it later)*/
+
+    /* The following segment of code is no longer useful, however could 
+    be useful if anyone were to pick up this project. */
 
     /* ---------------------------------------------------------
     char * operation = "Get-Content -path";
@@ -44,22 +65,24 @@ void encryptFile(const char * fileName, int upperGeneratedRandomBound) {
 
     printf("Powershell command: %s", *powershellCommand);
 
+    ~~ read from file ~~
+
     --------------------------------------------------------- */ 
 
-  /* Converting type unsigned int to type int[] */
+  /* 2: encrypting */
 
-  int * generatedKey = toArray(_generatedKey);
+  /* Adding an ASCII value to each byte, correlated to the previously generated key. */
 
-  // Sleep(50);
-
-  printf("\n [1]: %u", generatedKey[1]);
-
-
-  printf("\n key = %u", _generatedKey);
-
+    int keyLength = getLen(_generatedKey);
   
+    char zeroKeyLenMsg = "Generated key length is 0 or unreadable";
 
- 
+    if (keyLength == 0) 
+      raiseError(zeroKeyLenMsg, ZERO_KEY_LENGTH_OR_UNREADABLE);
+
+    for (size_t i; i < keyLength; i++) {
+
+    }
 
 
 }

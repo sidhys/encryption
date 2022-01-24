@@ -5,6 +5,8 @@
 #include ".\include\key.h"
 #include ".\include\log.h"
 
+#define HW_PROFILE_GRAB_FAILURE 3
+
 unsigned int randomValue(int randUpperBound)
 {
     HW_PROFILE_INFO hwProfileInfo;
@@ -32,8 +34,7 @@ unsigned int randomValue(int randUpperBound)
     } else
 		{
         char errorMessage[] = "Failed to obtain hardware profile info.";
-        unsigned int errorCode = 3;
-        raiseError(errorMessage, errorCode);
+        raiseError(errorMessage, HW_PROFILE_GRAB_FAILURE);
     }
 
     return 0;
