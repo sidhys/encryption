@@ -87,7 +87,7 @@ void encryptFile(const char * origFileName, const char* finalFileName,  int uppe
           if (random_loop_value2 > 12) 
             random_loop_value2 = 0;
     
-          char throw_away_value = currEncryptedLine[random_loop_value1] = currLine[random_loop_value1] + oneDigitArray[random_loop_value2];
+          char throw_away_value = currEncryptedLine[random_loop_value1] = currLine[random_loop_value1] + (int) oneDigitArray[random_loop_value2];
 
           fprintf(finalFile, throw_away_value);
 
